@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Created on Mon Aug 12 12:56:51 2024
 
@@ -6,7 +5,7 @@ Created on Mon Aug 12 12:56:51 2024
 
 This is a replication of Matlab code of DPC-CE 
 (Density Peak Clustering with Connectivity Estimation，Knowledge-Based Systems, 2022)
-Besed on https://github.com/WJ-Guo/DPC-CE.git
+Besed on "https://github.com/WJ-Guo/DPC-CE.git"
 """
 
 import numpy as np
@@ -235,14 +234,19 @@ def judge_nei(pair, dist, count, dc, dist_ther):
 
     return turn, nei_all, find_time, count, nei_dist
 
-################################ The main algo ################################
+
+###############################################################################
+###############################################################################
+##########################       The main Algo       ##########################
+###############################################################################
+###############################################################################
     
 # Load the data from the text file
-fourlines = np.loadtxt('twomoons.txt')
+data_set = np.loadtxt('twomoons.txt')
 
 # Extract the data and labels
-data = fourlines[:, :-1]
-true_label = fourlines[:, -1]
+data = data_set[:, :-1]
+true_label = data_set[:, -1]
 
     
 # Get the dimensions of the data
@@ -251,7 +255,7 @@ num = data.shape[0]
     
 data = centralize_and_scale(data)
 
-# Plot :
+# Plot dataset
 if len(data[0,:])>2:
     fig = plt.figure()
     ax = fig.add_subplot(projection='3d')
@@ -380,15 +384,13 @@ for i in range(1, len(choose_point)):
 maxd = np.max(dist)
 delta[ordrho[0]] = np.max(delta)
 
-#rhomin, deltamin, NCLUST = decision_graph(rho, delta)
-
-rhomin, deltamin = np.min(rho), np.min(delta)
+rhomin, deltamin, NCLUST = decision_graph(rho, delta)
 
 cl, icl, NCLUST = find_cluster_centers(rho, delta, rhomin, deltamin)
 
 cl, halo = perform_assignation(rho, delta, ordrho, nneigh, dist, dc, NCLUST, icl)
-"""
-# Final Plot :
+
+# Plot culstering results:
 if len(data[0,:])>2:
     fig = plt.figure()
     ax = fig.add_subplot(projection='3d')
@@ -397,8 +399,8 @@ else:
     plt.scatter(data[:, 0],data[:, 1], c=cl, alpha=1, s=20)
 
 # Calculate FMI
-#DPCFMI = fowlkes_mallows_score(true_label, cl)
-#print(f'FMI value of DPC on fourlines dataset: {DPCFMI}')
+DPCFMI = fowlkes_mallows_score(true_label, cl)
+print(f'FMI value of DPC on fourlines dataset: {DPCFMI}')
 
 # Calculate ARI
 DPCARI = adjusted_rand_score(true_label, cl)
@@ -407,4 +409,4 @@ print(f'ARI value of DPC on fourlines dataset: {DPCARI}')
 # Calculate NMI
 DPCNMI = normalized_mutual_info_score(true_label, cl)
 print(f'NMI value of DPC on fourlines dataset: {DPCNMI}')
-"""
+
