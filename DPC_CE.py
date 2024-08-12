@@ -3,9 +3,9 @@ Created on Mon Aug 12 12:56:51 2024
 
 @author: riad9
 
-This is a replication of Matlab code of DPC-CE 
-(Density Peak Clustering with Connectivity Estimation，Knowledge-Based Systems, 2022)
-Besed on "https://github.com/WJ-Guo/DPC-CE.git"
+This is a replication of code originally written in MATLAB 
+From "https://github.com/WJ-Guo/DPC-CE.git"
+DPC-CE (Density Peak Clustering with Connectivity Estimation，Knowledge-Based Systems, 2022)
 """
 
 import numpy as np
